@@ -1,4 +1,4 @@
-#include <stdio.h>
+include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -16,10 +16,52 @@ typedef struct {
     char cor[10];
 } Animal;
 
+void cadastrarCliente(Cliente *cl){
+  printf("Cadastrando Clientes :\n");
+  
+}
+void listarClientes(Cliente *cl){
+  printf("Listando Clientes :\n");
+  
+}
+void consultarCliente(Cliente *cl){
+  printf("Consultando Clientes :\n");
+  
+}
+void desativarCliente(Cliente *cl){
+  printf("Desativando Clientes :\n");
+  
+}
+void excluirCliente(Cliente *cl){
+  printf("Excluindo Clientes :\n");
+  
+}
+void cadastrarAnimal(Animal *an){
+  printf("Cadastrando Animais :\n");
+  
+}
+void listarAnimais(Animal *an){
+  printf("Listando Animais :\n");
+  
+}
+void desativarAnimal(Animal *an){
+  printf("Desativando Animais :\n");
+  
+}
 
 void clientes(){
 int opcao;
-        while (1) {
+        
+  FILE *cli;
+  cli=fopen("clientes.txt", "w" );
+  if (cli == NULL) {
+     printf("Erro na abertura do arquivo !");
+     system("pause");
+     exit(1);
+  }
+  Cliente cl;
+  
+  while (1) {
          printf("-Escolha uma das opcoes abaixos-\n");
         printf("1. Cadastrar Cliente\n");
         printf("2. Listar Clientes\n");
@@ -32,19 +74,19 @@ int opcao;
 
         switch (opcao) {
             case 1:
-                cadastrarCliente();
+                cadastrarCliente(&cl);
                 break;
             case 2:
-                listarClientes();
+                listarClientes(&cl);
                 break;
             case 3:
-                consultarCliente(clientes);
+                consultarCliente(&cl);
                 break;
             case 4:
-                desativarCliente(clientes);
+                desativarCliente(&cl);
                 break;
             case 5:
-                excluirCliente(&clientes);
+                excluirCliente(&cl);
                 break;
             case 6:
                 // Liberar memória e sair do programa
@@ -57,8 +99,18 @@ int opcao;
 
 void animais(){
 int opcao;
-        while (1) {
-         printf("-Escolha uma das opcoes abaixos-\n");
+
+  FILE *ani;
+  ani=fopen("animais.txt", "w" );
+  if (ani == NULL) {
+     printf("Erro na abertura do arquivo !");
+     system("pause");
+     exit(1);
+  }
+  Animal an;
+  
+  while (1) {
+        printf("-Escolha uma das opcoes abaixos-\n");
         printf("1. Cadastrar Animal\n");
         printf("2. Listar Animais\n");
         printf("3. Desativar animal\n");
@@ -68,13 +120,13 @@ int opcao;
 
         switch (opcao) {
             case 1:
-                cadastrarAnimal();
+                cadastrarAnimal(&an);
                 break;
             case 2:
-                listarAnimais(animal);
+                listarAnimais(&an);
                 break;
             case 3:
-                desativarAnimais(animal);
+                desativarAnimal(&an);
                 break;
             case 4:
                 // Liberar memória e sair do programa
@@ -85,49 +137,19 @@ int opcao;
     }
 }
 
-void cadastrarCliente(Cliente *cl){
-
-}
-void listarClientes(Cliente *cl, int numClientes){
-
-}
-void consultarCliente(Cliente *clientes){
-
-}
-void desativarCliente(Cliente *clientes){
-
-}
-void excluirCliente(Cliente *clientes){
-
-}
-void cadastrarAnimal(){
-
-}
-void listarAnimais(){
-
-}
-void desativarAnimal(){
-
-}
-
 int main() {
-int  escolha;
-
-FILE *cli;
-cli=fopen("clientes.txt", "w" );
-struct Cliente*cl;
-
-cl=(struct cliente*)malloc(100 * sizeof(struct cliente));
+int escolha;
 
 do{
     printf("----Bem vindo----\n");
     printf("\nMenu Principal:\n");
     printf("1-Clientes\n");
-    printf("2-Animais");
+    printf("2-Animais\n");
+    printf("Escolha uma opção: ");
     scanf("%i", &escolha);
 
     if(escolha==1){
-    clientes(cl);
+    clientes();
     }
     else if(escolha==2){
     animais();

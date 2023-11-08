@@ -1,21 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "cadastroCliente.h"
 
-typedef struct {
+int contador=0;
+
+struct Cliente {
     char cpf[12];
     char nome[50];
     int idade;
     char data_nascimento[10];
-} Cliente;
+};
 
-typedef struct {
+struct Animal{
     int codigo;
     char nome[50];
     int idade;
     char cor[10];
-} Animal;
+};
 
 void cadastrarCliente(Cliente *cl){
   printf("Cadastrando Clientes :\n");
@@ -38,8 +39,37 @@ void excluirCliente(Cliente *cl){
   
 }
 void cadastrarAnimal(Animal *an){
-  printf("Cadastrando Animais :\n");
-  
+    int n;
+    printf("Cadastrando Animais :\n");
+    printf("Quantos animais deseja cadastrar: ");
+    scanf("%i", &n);
+
+    struct animal *ani = (struct animal *)malloc(n * sizeof(struct animal)); // Alocação dinâmica
+
+    if (ani == NULL) {
+        printf("Falha na alocação de memória.\n");
+        return 1;
+    }
+
+    FILE *an;
+    an = fopen("animais.txt", "a");
+
+    for (int i = 0; i < n; i++) {
+        ani[i].codigo = contador;
+        printf("Digite o nome do animal: \n");
+        fflush(stdin);
+        fgets(ani[i].nome, 50, stdin);
+        printf("Digite a idade do animal: \n");
+        scanf("%i", &ani[i].idade);
+        printf("Digite a cor do animal: \n");
+        fflush(stdin);
+        fgets(ani[i].cor, 10, stdin);
+        contador++;
+        fwrite(&ani[i], sizeof(struct animal), 1, an);
+    }
+
+    fclose(an);
+    free(ani); // Libere a memória alocada dinamicamente
 }
 void listarAnimais(Animal *an){
   printf("Listando Animais :\n");
@@ -101,7 +131,9 @@ int opcao;
 
 void animais(){
 int opcao;
+Animal *an;
 
+an=(struct animal*)malloc(100*sizeof(struct animal));
   FILE *ani;
   ani=fopen("animais.txt", "a" );
   if (ani == NULL) {
@@ -113,7 +145,7 @@ int opcao;
 
   Animal an;
   
-  while (1) {
+  do {
         printf("-Escolha uma das opcoes abaixos-\n");
         printf("1. Cadastrar Animal\n");
         printf("2. Listar Animais\n");
@@ -138,7 +170,7 @@ int opcao;
             default:
                 printf("Opção inválida. Tente novamente.\n");
         }
-    }
+    }while ((opcao<1) || (opcao>4));
 }
 
 int main() {

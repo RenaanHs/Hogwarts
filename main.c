@@ -53,13 +53,13 @@ void clientes(){
 int opcao;
         
   FILE *cli;
-  cli=fopen("clientes.txt", "w" );
+  cli=fopen("clientes.txt", "a" );
   if (cli == NULL) {
      printf("Erro na abertura do arquivo !");
      system("pause");
      exit(1);
   }
-  Cliente cl;
+  Cliente cli;
   
   while (1) {
          printf("-Escolha uma das opcoes abaixos-\n");

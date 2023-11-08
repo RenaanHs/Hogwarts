@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "cadastroCliente.h"
 
 typedef struct {
     char cpf[12];
@@ -53,12 +54,13 @@ void clientes(){
 int opcao;
         
   FILE *cli;
-  cli=fopen("clientes.txt", "w" );
+  cli=fopen("clientes.txt", "a" );
   if (cli == NULL) {
      printf("Erro na abertura do arquivo !");
      system("pause");
      exit(1);
   }
+  fclose (cli);
   Cliente cl;
   
   while (1) {
@@ -101,12 +103,14 @@ void animais(){
 int opcao;
 
   FILE *ani;
-  ani=fopen("animais.txt", "w" );
+  ani=fopen("animais.txt", "a" );
   if (ani == NULL) {
      printf("Erro na abertura do arquivo !");
      system("pause");
      exit(1);
   }
+  fclose(ani);
+
   Animal an;
   
   while (1) {

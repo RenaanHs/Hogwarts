@@ -96,7 +96,37 @@ void excluirCliente(){
 
 }
 void cadastrarAnimal(){
-  printf("Cadastrando Animais :\n");
+  int n;
+    printf("Cadastrando Animais :\n");
+    printf("Quantos animais deseja cadastrar: ");
+    scanf("%i", &n);
+
+    struct animal *ani = (struct animal *)malloc(n * sizeof(struct animal)); // Alocação dinâmica
+
+    if (ani == NULL) {
+        printf("Falha na alocação de memória.\n");
+        return 1;
+    }
+
+    FILE *an;
+    an = fopen("animais.txt", "a");
+
+    for (int i = 0; i < n; i++) {
+        ani[i].codigo = contador;
+        printf("Digite o nome do animal: \n");
+        fflush(stdin);
+        fgets(ani[i].nome, 50, stdin);
+        printf("Digite a idade do animal: \n");
+        scanf("%i", &ani[i].idade);
+        printf("Digite a cor do animal: \n");
+        fflush(stdin);
+        fgets(ani[i].cor, 10, stdin);
+        contador++;
+        fwrite(&ani[i], sizeof(struct animal), 1, an);
+    }
+
+    fclose(an);
+    free(ani); // Libere a memória alocada dinamicamente
 
 }
 void listarAnimais(){

@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
+#include <ctype.h>
 
 int contador=0;
 
 
-typedef struct Cliente {
+struct Cliente {
     char cpf[12];
     char nome[50];
     int idade;
@@ -18,6 +20,53 @@ struct Animal{
     int idade;
     char cor[10];
 };
+bool verificaCPF(char cpf[]) {
+    // Verifica se o CPF tem 11 dígitos
+    if (strlen(cpf) != 11) {
+        return true;
+    }
+
+    // Verifica se todos os caracteres são dígitos
+    for (int i = 0; i < 11; i++) {
+        if (!isdigit(cpf[i])) {
+            return true;
+        }
+    }
+
+    // Calcula o primeiro dígito verificador
+    int soma = 0;
+    for (int i = 0; i < 9; i++) {
+        soma += (cpf[i] - '0') * (10 - i);
+    }
+    int digito1 = 11 - (soma % 11);
+    if (digito1 > 9) {
+        digito1 = 0;
+    }
+
+    // Verifica o primeiro dígito verificador
+    if (digito1 != cpf[9] - '0') {
+        return true;
+    }
+
+    // Calcula o segundo dígito verificador
+    soma = 0;
+    for (int i = 0; i < 10; i++) {
+        soma += (cpf[i] - '0') * (11 - i);
+    }
+    int digito2 = 11 - (soma % 11);
+    if (digito2 > 9) {
+        digito2 = 0;
+    }
+
+    // Verifica o segundo dígito verificador
+    if (digito2 != cpf[10] - '0') {
+        return true;
+    }
+
+    // Se passou por todas as verificações, o CPF é válido
+    return false;
+}
+
 
 void cadastrarCliente(){
   int n;
@@ -44,9 +93,20 @@ void cadastrarCliente(){
   
 
         for (int i = 0; i < n; i++) {
-            printf("Digite o seu CPF: \n");
+            while (verificaCPF(cl[i].cpf))
+            {
+                printf("Digite o seu CPF: \n");
             fflush(stdin);
             fgets(cl[i].cpf, 12, stdin);
+            verificaCPF(cl[i].cpf);
+            if (verificaCPF(cl[i].cpf)) {
+                printf("CPF invalido e/ou incorreto!\n");
+            } else {
+                printf("CPF valido!\n");
+                }   
+            } 
+            
+            
             printf("Digite o nome do Cliente: \n");
             fflush(stdin);
             fgets(cl[i].nome, 50, stdin);
@@ -69,31 +129,27 @@ void listarClientes(){
     scanf("%i", &n);
     struct Cliente *cl = (struct Cliente *)malloc(n * sizeof(struct Cliente)); 
     FILE *cli;
+
     cli=fopen("clientes.txt", "a" );
-    if (cli == NULL) {
-       printf("Erro na abertura do arquivo !");
-       system("pause");
-       exit(1);
-    }
 
-    printf("Listar Clientes :\n");
-    for (int i = 0; i < n; i++)
-    {
-        fgets(cl[i].cpf, 12, cli);
-    fgets(cl[i].nome, 50, cli);    
-    fgets(cl[i].idade, 0, cli);
+        printf("Listar Clientes :\n");
+        for (int i = 0; i < n; i++)
+        {
+            fgets(cl[i].cpf, 12, cli);
+            fgets(cl[i].nome, 50, cli);    
+            fgets(cl[i].idade, 0, cli);
 
-    printf("Digite sua data de nascimento");
-    printf("\nDia :");
-    scanf("%d", &cl[i].dia);
-    printf("Mês :");
-    scanf("%d", &cl[i].mes);
-    printf("Ano :");
-    scanf("%d", &cl[i].ano);
+            printf("Digite sua data de nascimento");
+            printf("\nDia :");
+            scanf("%d", &cl[i].dia);
+            printf("Mês :");
+            scanf("%d", &cl[i].mes);
+            printf("Ano :");
+            scanf("%d", &cl[i].ano);
 
-    printf("%s-%s-%d-%d/%d/%d\n", cl[i].cpf, cl[i].nome, cl[i].idade, cl[i].dia, cl[i].mes, cl[i].ano);
-    }
-    
+            fscanf("%s-%s-%d-%d/%d/%d\n", &cl[i].cpf, &cl[i].nome, &cl[i].idade, &cl[i].dia, &cl[i].mes, &cl[i].ano);
+        }
+        
     fclose (cli);
     free(cl);
 }

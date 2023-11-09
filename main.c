@@ -2,147 +2,143 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct {
+int contador=0;
+
+
+typedef struct Cliente {
     char cpf[12];
     char nome[50];
     int idade;
-    int dia, mes, ano;  
-} Cliente;
+    int dia, mes, ano;
+};
 
-typedef struct {
+struct Animal{
     int codigo;
     char nome[50];
     int idade;
     char cor[10];
-    char raça[50];
-} Animal;
+};
 
-void cadastrarClientes(){
-  char cpf[12];
-  char nome[50];
-  int idade;
-  int dia, mes, ano;  
-  FILE *cli;
-  cli=fopen("clientes.txt", "a" );
-  if (cli == NULL) {
-     printf("Erro na abertura do arquivo !");
-     system("pause");
-     exit(1);
-  }
-  
-  printf("Cadastrando Clientes :\n");
-
-  printf("Digite o seu CPF: ");
-  scanf("%s", &cpf);
-
-  printf("Digite seu nome:");
-  scanf("%s", &nome);
-
-  printf("Digite sua idade: ");
-  scanf("%d", &idade);
-
-  printf("Digite sua data de nascimento");
-  printf("\nDia :");
-  scanf("%d", &dia);
-  printf("Mês :");
-  scanf("%d", &mes);
-  printf("Ano :");
-  scanf("%d", &ano);
-
-  fprintf(cli, "%s-%s-%d-%d/%d/%d\n", &cpf, &nome, idade, dia, mes, ano);
-  fclose (cli);
-}
-
-void listarClientes(){
-    char cpf[12];
-    char nome[50];
-    int idade;
-    int dia, mes, ano;  
-    FILE *cli;
-    cli=fopen("clientes.txt", "a" );
-    if (cli == NULL) {
-       printf("Erro na abertura do arquivo !");
-       system("pause");
-       exit(1);
-    }
-
-    printf("Listar Clientes :\n");
-    fgets(cpf, 12, cli);
-    fgets(nome, 50, cli);    
-    fgets(idade, 0, cli);
-
-    printf("Digite sua data de nascimento");
-    printf("\nDia :");
-    scanf("%d", &dia);
-    printf("Mês :");
-    scanf("%d", &mes);
-    printf("Ano :");
-    scanf("%d", &ano);
-
-    printf("%s-%s-%d-%d/%d/%d\n", &cpf, &nome, idade, dia, mes, ano);
-    fclose (cli);
-}
-  
-void consultarCliente(){
-  printf("Consultando Clientes :\n");
-
-}
-void desativarCliente(){
-  printf("Desativando Clientes :\n");
-
-}
-void excluirCliente(){
-  printf("Excluindo Clientes :\n");
-
-}
-void cadastrarAnimal(){
+void cadastrarCliente(){
   int n;
-    printf("Cadastrando Animais :\n");
-    printf("Quantos animais deseja cadastrar: ");
+    printf("Cadastrando Clientes :\n");
+    printf("Quantos clientes deseja cadastrar: ");
     scanf("%i", &n);
 
-    struct animal *ani = (struct animal *)malloc(n * sizeof(struct animal)); // Alocação dinâmica
+    // Alocação dinâmica
+    struct Cliente *cl = (struct Cliente *)malloc(n * sizeof(struct Cliente)); 
 
-    if (ani == NULL) {
+    if (cl == NULL) {
         printf("Falha na alocação de memória.\n");
         return 1;
     }
 
-    FILE *an;
-    an = fopen("animais.txt", "a");
+    
+    FILE *cli;
+    cli=fopen("clientes.txt", "a" );
+        if (cli == NULL) {
+            printf("Erro na abertura do arquivo !");
+            system("pause");
+            exit(1);
+        }
+  
 
-    for (int i = 0; i < n; i++) {
-        ani[i].codigo = contador;
-        printf("Digite o nome do animal: \n");
-        fflush(stdin);
-        fgets(ani[i].nome, 50, stdin);
-        printf("Digite a idade do animal: \n");
-        scanf("%i", &ani[i].idade);
-        printf("Digite a cor do animal: \n");
-        fflush(stdin);
-        fgets(ani[i].cor, 10, stdin);
-        contador++;
-        fwrite(&ani[i], sizeof(struct animal), 1, an);
+        for (int i = 0; i < n; i++) {
+            printf("Digite o seu CPF: \n");
+            fflush(stdin);
+            fgets(cl[i].cpf, 12, stdin);
+            printf("Digite o nome do Cliente: \n");
+            fflush(stdin);
+            fgets(cl[i].nome, 50, stdin);
+            printf("Digite a idade do cliente: \n");
+            fflush(stdin);
+            scanf("%i", &cl[i].idade);
+            printf("Digite sua data de nascimento: \n");
+            fflush(stdin);
+            scanf("%i%i%i", &cl[i].dia, &cl[i].mes, &cl[i].ano);
+            fprintf(cli, "%s\n%s\n%d\n%d/%d/%d\n\n", cl[i].cpf, cl[i].nome, cl[i].idade, cl[i].dia, cl[i].mes, cl[i].ano);
+        }
+
+    fclose(cli);
+    free(cl); // Libere a memória alocada dinamicamente
+  
+}
+void listarClientes(){
+    struct Cliente *cl;
+
+    printf("Listando Clientes :\n");
+  
+    FILE *cli;
+    cli=fopen("clientes.txt", "a" );
+
+    
+  
+}
+void consultarCliente(){
+  printf("Consultando Clientes :\n");
+  
+}
+void desativarCliente(){
+  printf("Desativando Clientes :\n");
+  
+}
+void excluirCliente(){
+  printf("Excluindo Clientes :\n");
+  
+}
+void cadastrarAnimal(){
+    int n;
+    printf("Cadastrando Animais :\n");
+    printf("Quantos animais deseja cadastrar: ");
+    scanf("%i", &n);
+
+    struct Animal *an = (struct Animal *)malloc(n * sizeof(struct Animal)); // Alocação dinâmica
+
+    if (an == NULL) {
+        printf("Falha na alocação de memória.\n");
+        return 1;
     }
 
-    fclose(an);
-    free(ani); // Libere a memória alocada dinamicamente
+    FILE *ani;
+    ani=fopen("animais.txt", "a" );
+        if (ani == NULL) {
+            printf("Erro na abertura do arquivo !");
+            system("pause");
+            exit(1);
+        }
 
+        for (int i = 0; i < n; i++) {
+            an[i].codigo = contador;
+            printf("Digite o nome do animal: \n");
+            fflush(stdin);
+            fgets(an[i].nome, 50, stdin);
+            printf("Digite a idade do animal: \n");
+            scanf("%i", &an[i].idade);
+            printf("Digite a cor do animal: \n");
+            fflush(stdin);
+            fgets(an[i].cor, 10, stdin);
+            contador++;
+            fwrite(&an[i], sizeof(struct Animal), 1, ani);
+        }
+
+    fclose(ani);
+    free(an); // Libere a memória alocada dinamicamente
 }
 void listarAnimais(){
   printf("Listando Animais :\n");
-
+  
 }
 void desativarAnimal(){
   printf("Desativando Animais :\n");
-
+  
 }
 
 void clientes(){
 int opcao;
-  while (1) { 
-       printf("\n\n");
-       printf("-Escolha uma das opcoes abaixos-\n");
+ 
+  
+  while (1) {
+         printf("-Escolha uma das opcoes abaixos-\n");
         printf("1. Cadastrar Cliente\n");
         printf("2. Listar Clientes\n");
         printf("3. Consultar Cliente\n");
@@ -154,7 +150,7 @@ int opcao;
 
         switch (opcao) {
             case 1:
-                cadastrarClientes();
+                cadastrarCliente();
                 break;
             case 2:
                 listarClientes();
@@ -169,6 +165,7 @@ int opcao;
                 excluirCliente();
                 break;
             case 6:
+                // Liberar memória e sair do programa
                 exit(0);
             default:
                 printf("Opção inválida. Tente novamente.\n");
@@ -178,18 +175,9 @@ int opcao;
 
 void animais(){
 int opcao;
-
-  FILE *ani;
-  ani=fopen("animais.txt", "a" );
-  if (ani == NULL) {
-     printf("Erro na abertura do arquivo !");
-     system("pause");
-     exit(1);
-  }
   
-  Animal an;
-
-  while (1) {
+  
+  do {
         printf("-Escolha uma das opcoes abaixos-\n");
         printf("1. Cadastrar Animal\n");
         printf("2. Listar Animais\n");
@@ -200,23 +188,23 @@ int opcao;
 
         switch (opcao) {
             case 1:
-                cadastrarAnimal(&an);
+                cadastrarAnimal();
                 break;
             case 2:
-                listarAnimais(&an);
+                listarAnimais();
                 break;
             case 3:
-                desativarAnimal(&an);
+                desativarAnimal();
                 break;
             case 4:
                 // Liberar memória e sair do programa
-                fclose(ani);
                 exit(0);
             default:
                 printf("Opção inválida. Tente novamente.\n");
         }
-    }
+    }while ((opcao<1) || (opcao>4));
 }
+
 
 int main() {
 int escolha;
@@ -241,4 +229,4 @@ do{
 }while(escolha < 1 || escolha > 2);
 
     return 0;
-}    
+}

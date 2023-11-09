@@ -210,7 +210,7 @@ void cadastrarAnimal(){
     struct Animal *an = (struct Animal *)malloc(n * sizeof(struct Animal)); // Alocação dinâmica
 
     if (an == NULL) {
-        printf("Falha na alocação de memória.\n");
+        printf("Falha na alocação de memoria.\n");
         return 1;
     }
 
@@ -260,7 +260,7 @@ int opcao;
         printf("4. Desativar Cliente\n");
         printf("5. Excluir Cliente\n");
         printf("6. Sair\n");
-        printf("Escolha uma opção: ");
+        printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
         switch (opcao) {
@@ -283,7 +283,7 @@ int opcao;
                 // Liberar memória e sair do programa
                 exit(0);
             default:
-                printf("Opção inválida. Tente novamente.\n");
+                printf("Opcao invalida. Tente novamente.\n");
         }
     }
 }
@@ -315,7 +315,7 @@ int opcao;
                 // Liberar memória e sair do programa
                 exit(0);
             default:
-                printf("Opção inválida. Tente novamente.\n");
+                printf("Opcao invalida. Tente novamente.\n");
         }
     }while ((opcao<1) || (opcao>4));
 }

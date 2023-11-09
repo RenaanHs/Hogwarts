@@ -251,7 +251,7 @@ void excluirCliente(){
     remove("clientes.txt");
     rename("temp.txt", "clientes.txt");
 
-    printf("Cliente excluído com sucesso!\n");
+    printf("Cliente excluido com sucesso!\n");
   
 }
 void cadastrarAnimal(){
@@ -263,7 +263,7 @@ void cadastrarAnimal(){
     struct Animal *an = (struct Animal *)malloc(n * sizeof(struct Animal)); // Alocação dinâmica
 
     if (an == NULL) {
-        printf("Falha na alocação de memória.\n");
+        printf("Falha na alocacao de memoria.\n");
         return 1;
     }
 
@@ -323,7 +323,7 @@ void listarAnimais(){
 }
 void desativarAnimal(){
   int codigo;
-    printf("Digite o código do animal a ser desativado: ");
+    printf("Digite o codigo do animal a ser desativado: ");
     scanf("%d", &codigo);
 
     FILE *ani;
@@ -391,7 +391,7 @@ int opcao;
                 // Liberar memória e sair do programa
                 exit(0);
             default:
-                printf("Opção inválida. Tente novamente.\n");
+                printf("Opcao invalida. Tente novamente.\n");
         }
     }
 }
@@ -423,7 +423,7 @@ int opcao;
                 // Liberar memória e sair do programa
                 exit(0);
             default:
-                printf("Opção inválida. Tente novamente.\n");
+                printf("Opção invalida. Tente novamente.\n");
         }
     }while ((opcao<1) || (opcao>4));
 }
@@ -437,7 +437,7 @@ do{
     printf("\nMenu Principal:\n");
     printf("1-Clientes\n");
     printf("2-Animais\n");
-    printf("Escolha uma opção: ");
+    printf("Escolha uma opcao: ");
     scanf("%i", &escolha);
 
     if(escolha==1){

@@ -368,7 +368,7 @@ int opcao;
         printf("4. Desativar Cliente\n");
         printf("5. Excluir Cliente\n");
         printf("6. Sair\n");
-        printf("Escolha uma opção: ");
+        printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
         switch (opcao) {
@@ -406,7 +406,7 @@ int opcao;
         printf("2. Listar Animais\n");
         printf("3. Desativar animal\n");
         printf("4. Sair\n");
-        printf("Escolha uma opção: ");
+        printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
         switch (opcao) {

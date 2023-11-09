@@ -64,15 +64,38 @@ void cadastrarCliente(){
   
 }
 void listarClientes(){
-    struct Cliente *cl;
-
-    printf("Listando Clientes :\n");
-  
+    int n;
+    printf("Quantos clientes deseja listar: ");
+    scanf("%i", &n);
+    struct Cliente *cl = (struct Cliente *)malloc(n * sizeof(struct Cliente)); 
     FILE *cli;
     cli=fopen("clientes.txt", "a" );
+    if (cli == NULL) {
+       printf("Erro na abertura do arquivo !");
+       system("pause");
+       exit(1);
+    }
 
+    printf("Listar Clientes :\n");
+    for (int i = 0; i < n; i++)
+    {
+        fgets(cl[i].cpf, 12, cli);
+    fgets(cl[i].nome, 50, cli);    
+    fgets(cl[i].idade, 0, cli);
+
+    printf("Digite sua data de nascimento");
+    printf("\nDia :");
+    scanf("%d", &cl[i].dia);
+    printf("Mês :");
+    scanf("%d", &cl[i].mes);
+    printf("Ano :");
+    scanf("%d", &cl[i].ano);
+
+    printf("%s-%s-%d-%d/%d/%d\n", cl[i].cpf, cl[i].nome, cl[i].idade, cl[i].dia, cl[i].mes, cl[i].ano);
+    }
     
-  
+    fclose (cli);
+    free(cl);
 }
 void consultarCliente(){
   printf("Consultando Clientes :\n");

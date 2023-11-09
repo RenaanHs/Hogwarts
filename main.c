@@ -66,8 +66,6 @@ bool verificaCPF(char cpf[]) {
     // Se passou por todas as verificações, o CPF é válido
     return false;
 }
-
-
 void cadastrarCliente(){
   int n;
     printf("Cadastrando Clientes :\n");
@@ -116,7 +114,7 @@ void cadastrarCliente(){
             printf("Digite sua data de nascimento: \n");
             fflush(stdin);
             scanf("%i%i%i", &cl[i].dia, &cl[i].mes, &cl[i].ano);
-            fprintf(cli, "%s\n%s\n%d\n%d/%d/%d\n\n", cl[i].cpf, cl[i].nome, cl[i].idade, cl[i].dia, cl[i].mes, cl[i].ano);
+            fprintf(cli, "%s, %s, %d, %d/%d/%d\n", cl[i].cpf, cl[i].nome, cl[i].idade, cl[i].dia, cl[i].mes, cl[i].ano);
         }
 
     fclose(cli);
@@ -130,9 +128,8 @@ void listarClientes(){
     struct Cliente *cl = (struct Cliente *)malloc(n * sizeof(struct Cliente)); 
     FILE *cli;
 
-    cli=fopen("clientes.txt", "a" );
+    cli = fopen("clientes.txt", "r" );
 
-        printf("Listar Clientes :\n");
         for (int i = 0; i < n; i++)
         {
             fgets(cl[i].cpf, 12, cli);
@@ -148,13 +145,52 @@ void listarClientes(){
             scanf("%d", &cl[i].ano);
 
             fscanf("%s-%s-%d-%d/%d/%d\n", &cl[i].cpf, &cl[i].nome, &cl[i].idade, &cl[i].dia, &cl[i].mes, &cl[i].ano);
+            printf("%s-%s-%d-%d/%d/%d\n", cl[i].cpf, cl[i].nome, cl[i].idade, cl[i].dia, cl[i].mes, cl[i].ano, toupper(cl[i].nome));
         }
         
     fclose (cli);
     free(cl);
 }
 void consultarCliente(){
-  printf("Consultando Clientes :\n");
+    struct Cliente cl;
+    char cpfC[12];
+    char c;
+    FILE *cli;
+    cli = fopen("Clientes.txt", "r");
+    printf("Digite o CPF da pessoa que deseja consultar: \n");
+    fflush(stdin);
+    fgets(&cpfC, 12, stdin);
+    printf("Consultando Clientes:\n");
+    while ((c == fgetc(cli)) != EOF)    
+    {
+        if (c == cpfC)
+        {
+            for (int i = 0; i < strlen(cpfC); i++)
+            {
+                c = fgetc(cli);
+                if (c == EOF)
+                {
+                    break;
+                }
+                if (*(cpfC + 1) != c)
+                {
+                    break;
+                }
+            if (i == strlen(cpfC))
+            {
+                fscanf("%s %s %i %i%i%i", &cl.cpf, &cl.nome, &cl.idade, &cl.dia, &cl.mes, &cl.ano);
+                printf("CPF: %s\nNome: %s Idade: %i Data Nascimento: %i/%i/%i", cl.cpf, cl.nome, cl.idade, cl.dia, cl.mes, cl.ano);
+            }
+            
+                
+            }
+            
+        }
+        
+    }
+    
+    
+
   
 }
 void desativarCliente(){

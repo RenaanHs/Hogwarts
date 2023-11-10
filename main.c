@@ -66,8 +66,6 @@ bool verificaCPF(char cpf[]) {
     // Se passou por todas as verificações, o CPF é válido
     return false;
 }
-
-
 void cadastrarCliente(){
   int n;
     printf("Cadastrando Clientes :\n");
@@ -121,7 +119,7 @@ void cadastrarCliente(){
 
     fclose(cli);
     free(cl); // Libere a memória alocada dinamicamente
-
+    clientes();
 }
 void listarClientes(){
     int n;
@@ -152,6 +150,7 @@ void listarClientes(){
 
     fclose (cli);
     free(cl);
+    clientes();
 }
 void consultarCliente(){
   char cpfConsulta[12];
@@ -218,7 +217,7 @@ void desativarCliente(){
 
     remove("clientes.txt");
     rename("temp.txt", "clientes.txt");
-
+    clientes();
 }
 void excluirCliente(){
   char cpfExcluir[12];
@@ -252,7 +251,7 @@ void excluirCliente(){
     rename("temp.txt", "clientes.txt");
 
     printf("Cliente excluido com sucesso!\n");
-
+    clientes();
 }
 void cadastrarAnimal(){
     int n;
@@ -291,6 +290,7 @@ void cadastrarAnimal(){
 
     fclose(ani);
     free(an); // Libere a memória alocada dinamicamente
+    animais();
 }
 void listarAnimais(){
   int n;
@@ -319,7 +319,7 @@ void listarAnimais(){
 
     fclose(ani);
     free(an);
-
+    animais();
 }
 void desativarAnimal(){
   int codigo;
@@ -353,7 +353,7 @@ void desativarAnimal(){
 
     printf("Animal desativado com sucesso!\n");
 
-
+    animais();
 }
 
 void clientes(){
@@ -427,6 +427,7 @@ void adotarAnimal() {
 
     remove("animais.txt");
     rename("temp.txt", "animais.txt");
+   
 }
 
 

@@ -476,6 +476,7 @@ do{
     printf("\nMenu Principal:\n");
     printf("1-Clientes\n");
     printf("2-Animais\n");
+    printf("3-Adoção de Animais\n");
     printf("Escolha uma opcao: ");
     scanf("%i", &escolha);
 
@@ -484,11 +485,12 @@ do{
     }
     else if(escolha==2){
     animais();
-    }
+    }else if(escolha==3){
+    adotarAnimal();
     else{
     printf("Opcao invalida, tente novamente");
     }
-}while(escolha < 1 || escolha > 2);
+}while(escolha < 1 || escolha > 3);
 
     return 0;
 }

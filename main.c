@@ -82,7 +82,7 @@ void cadastrarCliente(){
         return 1;
     }
 
-    
+
     FILE *cli;
     cli=fopen("clientes.txt", "a" );
         if (cli == NULL) {
@@ -90,7 +90,7 @@ void cadastrarCliente(){
             system("pause");
             exit(1);
         }
-  
+
 
         for (int i = 0; i < n; i++) {
             while (verificaCPF(cl[i].cpf))
@@ -105,8 +105,8 @@ void cadastrarCliente(){
                 printf("CPF valido!\n");
                 }   
             } 
-            
-            
+
+
             printf("Digite o nome do Cliente: \n");
             fflush(stdin);
             fgets(cl[i].nome, 50, stdin);
@@ -121,7 +121,7 @@ void cadastrarCliente(){
 
     fclose(cli);
     free(cl); // Libere a memória alocada dinamicamente
-  
+
 }
 void listarClientes(){
     int n;
@@ -149,7 +149,7 @@ void listarClientes(){
 
             fscanf("%s-%s-%d-%d/%d/%d\n", &cl[i].cpf, &cl[i].nome, &cl[i].idade, &cl[i].dia, &cl[i].mes, &cl[i].ano);
         }
-        
+
     fclose (cli);
     free(cl);
 }
@@ -183,7 +183,7 @@ void consultarCliente(){
 
     printf("Cliente não encontrado!\n");
     fclose(cli);
-  
+
 }
 void desativarCliente(){
   char cpfDesativar[12];
@@ -218,7 +218,7 @@ void desativarCliente(){
 
     remove("clientes.txt");
     rename("temp.txt", "clientes.txt");
-  
+
 }
 void excluirCliente(){
   char cpfExcluir[12];
@@ -252,7 +252,7 @@ void excluirCliente(){
     rename("temp.txt", "clientes.txt");
 
     printf("Cliente excluido com sucesso!\n");
-  
+
 }
 void cadastrarAnimal(){
     int n;
@@ -319,7 +319,7 @@ void listarAnimais(){
 
     fclose(ani);
     free(an);
-  
+
 }
 void desativarAnimal(){
   int codigo;
@@ -353,13 +353,13 @@ void desativarAnimal(){
 
     printf("Animal desativado com sucesso!\n");
 
-  
+
 }
 
 void clientes(){
 int opcao;
- 
-  
+
+
   while (1) {
          printf("-Escolha uma das opcoes abaixos-\n");
         printf("1. Cadastrar Cliente\n");
@@ -396,16 +396,51 @@ int opcao;
     }
 }
 
+void adotarAnimal() {
+    int codigo;
+    printf("Digite o codigo do animal a ser adotado: ");
+    scanf("%d", &codigo);
+
+    FILE *ani;
+    FILE *temp;
+    ani = fopen("animais.txt", "r");
+    temp = fopen("temp.txt", "w");
+
+    if (ani == NULL || temp == NULL) {
+        printf("Erro na abertura do arquivo!\n");
+        system("pause");
+        exit(1);
+    }
+
+    struct Animal aux;
+
+    while (fread(&aux, sizeof(struct Animal), 1, ani)) {
+        if (aux.codigo != codigo) {
+            fwrite(&aux, sizeof(struct Animal), 1, temp);
+        } else {
+            printf("Animal adotado com sucesso!\n");
+        }
+    }
+
+    fclose(ani);
+    fclose(temp);
+
+    remove("animais.txt");
+    rename("temp.txt", "animais.txt");
+}
+
+
 void animais(){
 int opcao;
-  
-  
+
+
   do {
         printf("-Escolha uma das opcoes abaixos-\n");
         printf("1. Cadastrar Animal\n");
         printf("2. Listar Animais\n");
         printf("3. Desativar animal\n");
-        printf("4. Sair\n");
+        printf("4. Adotar Animal\n"); 
+        printf("5. Sair\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
@@ -419,13 +454,16 @@ int opcao;
             case 3:
                 desativarAnimal();
                 break;
-            case 4:
+          case 4:
+          adotarAnimal(); 
+          break;
+            case 5:
                 // Liberar memória e sair do programa
                 exit(0);
             default:
                 printf("Opção invalida. Tente novamente.\n");
         }
-    }while ((opcao<1) || (opcao>4));
+    }while ((opcao<1) || (opcao>5));
 }
 
 
@@ -453,4 +491,3 @@ do{
 
     return 0;
 }
-

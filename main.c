@@ -19,6 +19,7 @@ struct Animal{
     char nome[50];
     int idade;
     char cor[10];
+    char status[10];
 };
 bool verificaCPF(char cpf[]) {
     // Verifica se o CPF tem 11 dígitos
@@ -284,6 +285,7 @@ void cadastrarAnimal(){
             printf("Digite a cor do animal: \n");
             fflush(stdin);
             fgets(an[i].cor, 10, stdin);
+            strcpy(an[i].status, "Ativo");
             contador++;
             fwrite(&an[i], sizeof(struct Animal), 1, ani);
         }

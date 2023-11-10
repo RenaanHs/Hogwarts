@@ -487,6 +487,7 @@ do{
     animais();
     }else if(escolha==3){
     adotarAnimal();
+    }
     else{
     printf("Opcao invalida, tente novamente");
     }

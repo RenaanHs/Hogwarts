@@ -6,7 +6,6 @@
 
 int contador=0;
 
-
 struct Cliente {
     char cpf[12];
     char nome[50];
@@ -131,24 +130,16 @@ void listarClientes(){
 
     cli=fopen("clientes.txt", "a" );
 
-        printf("Listar Clientes :\n");
-        for (int i = 0; i < n; i++)
-        {
-            fgets(cl[i].cpf, 12, cli);
-            fgets(cl[i].nome, 50, cli);    
-            fgets(cl[i].idade, 0, cli);
+    printf("Listar Clientes :\n");
 
-            printf("Digite sua data de nascimento");
-            printf("\nDia :");
-            scanf("%d", &cl[i].dia);
-            printf("Mês :");
-            scanf("%d", &cl[i].mes);
-            printf("Ano :");
-            scanf("%d", &cl[i].ano);
-
-            fscanf("%s-%s-%d-%d/%d/%d\n", &cl[i].cpf, &cl[i].nome, &cl[i].idade, &cl[i].dia, &cl[i].mes, &cl[i].ano);
-        }
-
+    while (fscanf(cli, "%s%s%d%d/%d/%d", aux.cpf, aux.nome, &aux.idade, &aux.dia, &aux.mes, &aux.ano) != EOF) {
+           printf("CPF: %s\n", aux.cpf);
+           printf("Nome: %s", aux.nome);
+           printf("Idade: %d\n", aux.idade);
+           printf("Data de Nascimento: %d/%d/%d\n", aux.dia, aux.mes, aux.ano);                       
+           printf("--------------------------------------------------");        
+    }
+    
     fclose (cli);
     free(cl);
     clientes();

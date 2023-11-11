@@ -206,7 +206,7 @@ void desativarCliente(){
 
     while (fscanf(cli, "%s%s%d%d/%d/%d", aux.cpf, aux.nome, &aux.idade, &aux.dia, &aux.mes, &aux.ano) != EOF) {
         if (strcmp(aux.cpf, cpfDesativar) == 0) {
-            fprintf(temp, "%s%s%d%d/%d/%d\n", aux.cpf, aux.nome, aux.idade, aux.dia, aux.mes, aux.ano);
+            printf("%s%s%d%d/%d/%d\n", aux.cpf, aux.nome, aux.idade, aux.dia, aux.mes, aux.ano);
             printf("Cliente desativado com sucesso!\n");
         } else {
             fprintf(temp, "%s%s%d%d/%d/%d\n", aux.cpf, aux.nome, aux.idade, aux.dia, aux.mes, aux.ano);

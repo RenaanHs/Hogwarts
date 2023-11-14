@@ -158,7 +158,7 @@ void listarClientes(){
 
   int i, k;
 
-  linhas = linhas / 5;
+  linhas = linhas / 4;
 
   Cliente aux;
   char ordenado[linhas][12];
@@ -481,7 +481,7 @@ void adotarAnimal() {
 
     Animal aux;
 
-  while (fscanf(ani, "%d%s%d%s%s", &aux.codigo, aux.nome, &aux.idade, aux.cor, aux.status) != EOF) {
+  while (fscanf(ani, "%d%s%d%s%s%s", &aux.codigo, aux.nome, &aux.idade, aux.cor, aux.status, aux.adotanteCPF ) != EOF) {
       if (aux.codigo == codigo && strcmp(aux.status, "Ativo") == 0) {
           strcpy(aux.status, "Adotado");
           strcpy(aux.adotanteCPF, cpfAdotante);

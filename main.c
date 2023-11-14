@@ -373,26 +373,47 @@ void cadastrarAnimal(){
         fclose(ani);        
     void animais();
 }
-void listarAnimais(){  
+
+int compararPorCodigo(const void *a, const void *b) {
+    const Animal *animalA = (const Animal *)a;
+    const Animal *animalB = (const Animal *)b;
+    return animalA->codigo - animalB->codigo;
+}
+
+
+void listarAnimais() {
     FILE *ani;
     ani = fopen("animais.txt", "r");
+
     if (ani == NULL) {
-        printf("Erro na abertura do arquivo!\n");
+        printf("Erro na abertura do arquivo de animais!\n");
         system("pause");
         exit(1);
-    }    
-    Animal aux;
-    printf("Listar Animais:\n");  
-    while (fscanf(ani, "%d%s%d%s%s", &aux.codigo, aux.nome, &aux.idade, aux.cor, aux.status) != EOF) {
-      printf("Codigo: %d\n", aux.codigo);
-      printf("Nome: %s\n", aux.nome);
-      printf("Idade: %d\n", aux.idade);
-      printf("Cor: %s\n", aux.cor);
-      printf("Status: %s\n", aux.status);
-      printf("\n");
     }
-    fclose(ani);    
-    void animais();
+    Animal aux;
+    Animal animais[100];
+    int numAnimais = 0;
+
+    
+    while (fscanf(ani, "%d%s%d%s%s%s", &aux.codigo, aux.nome, &aux.idade, aux.cor, aux.status, aux.adotanteCPF) != EOF) {
+        animais[numAnimais++] = aux;
+    }
+
+    
+    qsort(animais, numAnimais, sizeof(Animal), compararPorCodigo);
+
+    printf("Listar Animais Ordenados por Código:\n");
+    for (int i = 0; i < numAnimais; i++) {
+        printf("Codigo: %d\n", animais[i].codigo);
+        printf("Nome: %s\n", animais[i].nome);
+        printf("Idade: %d\n", animais[i].idade);
+        printf("Cor: %s\n", animais[i].cor);
+        printf("Status: %s\n", animais[i].status);
+        printf("Adotante CPF: %s\n",animais[i].adotanteCPF);
+        printf("\n");
+    }
+
+    fclose(ani);
 }
 void desativarAnimal(){
   int codigo;

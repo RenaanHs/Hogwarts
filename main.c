@@ -4,8 +4,6 @@
 #include <stdbool.h>
 #include <ctype.h>
 
-int contador=0;
-
 typedef struct {    
     char cpf[12];
     char nome[51];
@@ -315,19 +313,28 @@ void excluirCliente(){
     printf("Cliente excluido com sucesso!\n");
     void clientes();
 }
+int obterUltimoCodigo() {
+    FILE *arquivo = fopen("animais.txt", "r");
+    if (arquivo == NULL) {
+        // Se o arquivo não existir, retorna 0 como código inicial
+        return 0;
+    }
+
+    int ultimoCodigo;
+    fseek(arquivo, -1, SEEK_SET);
+    fscanf(arquivo, "%d", &ultimoCodigo);
+
+    fclose(arquivo);
+    return ultimoCodigo;
+}
 void cadastrarAnimal(){
-  int n;
+  int n, ultimoCod=0,contador=0;
+  int opcao, linha=1;
+
   printf("----------------------------------------\n");
   printf("Cadastrando Animais :\n");
-  printf("Quantos animais deseja cadastrar: ");
-  scanf("%i", &n);
-
-  Animal *an = (Animal *)malloc(n * sizeof(Animal));
-
-    if (an == NULL) {
-        printf("Falha na alocacao de memoria.\n");
-        return;
-    }
+  Animal an;
+  
 
     FILE *ani;
     ani=fopen("animais.txt", "a" );
@@ -336,25 +343,34 @@ void cadastrarAnimal(){
             system("pause");
             exit(1);
         }
+            ultimoCod=obterUltimoCodigo();
+            contador = ultimoCod;
 
-        for (int i = 0; i < n; i++) {
-            an[i].codigo = contador;
-            printf("Digite o nome do animal: \n");
+      do {
+            printf("\n");
+            printf("Digite o nome do animal: ");
             fflush(stdin);
-            fgets(an[i].nome, 50, stdin);
-            printf("Digite a idade do animal: \n");
-            scanf("%i", &an[i].idade);
-            printf("Digite a cor do animal: \n");
+            fgets(an.nome, 50, stdin);
+            printf("Digite a idade do animal: ");
+            scanf("%i", &an.idade);
+            printf("Digite a cor do animal: ");
             fflush(stdin);
-            fgets(an[i].cor, 10, stdin);
-            strcpy(an[i].status, "Ativo");
+            fgets(an.cor, 10, stdin);
+            strcpy(an.status, "Ativo");
+            an.codigo = contador;
             contador++;
-            fwrite(&an[i], sizeof(Animal), 1, ani);
-        }
+            fprintf(ani, "\n%i\n%s%i\n%s%s\n\n", an.codigo,an.nome, an.idade, an.cor, an.status);
+            printf("Deseja cadastrar mais um animal?\n1-Sim\n2-Nao\nEscolha: ");
+            scanf("%i", &opcao);
+        }while(opcao != 2);
+
+        fclose(ani);
+            ani=fopen("animais.txt", "r+" );
+            fseek(ani, 0 , SEEK_SET);
+            fprintf(ani, "%i\n", contador);
 
     fclose(ani);
-    free(an); // Libere a memória alocada dinamicamente
-    void animais();
+    animais();
 }
 void listarAnimais(){
   int n;
@@ -384,7 +400,7 @@ void listarAnimais(){
 
     fclose(ani);
     free(an);
-    void animais();
+    animais();
 }
 void desativarAnimal(){
   int codigo;
@@ -418,7 +434,7 @@ void desativarAnimal(){
     rename("temp.txt", "animais.txt");
 
     printf("Animal desativado com sucesso!\n");
-    void animais();
+    animais();
 }
 
 void clientes(){
@@ -430,7 +446,8 @@ int opcao;
         printf("3. Consultar Cliente\n");
         printf("4. Desativar Cliente\n");
         printf("5. Excluir Cliente\n");
-        printf("6. Sair\n");
+        printf("6. Retornar ao Menu principal\n");
+        printf("7. Sair\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
@@ -451,6 +468,9 @@ int opcao;
                 excluirCliente();
                 break;
             case 6:
+                main();
+                break;
+            case 7:
                 // Liberar memória e sair do programa
                 exit(0);
             default:
@@ -498,12 +518,13 @@ void adotarAnimal() {
 void animais(){
 int opcao;
   do {
-        printf("-Escolha uma das opcoes abaixos-\n");
+        printf("\n-Escolha uma das opcoes abaixos-\n");
         printf("1. Cadastrar Animal\n");
         printf("2. Listar Animais\n");
         printf("3. Desativar animal\n");
         printf("4. Adotar Animal\n"); 
-        printf("5. Sair\n");
+        printf("5. Retornar ao Menu principal\n");
+        printf("6. Sair\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
@@ -517,16 +538,19 @@ int opcao;
             case 3:
                 desativarAnimal();
                 break;
-          case 4:
-          adotarAnimal(); 
-          break;
+            case 4:
+                adotarAnimal(); 
+                break;
             case 5:
+                main();
+                break;
+            case 6:
                 // Liberar memória e sair do programa
                 exit(0);
             default:
                 printf("Opção invalida. Tente novamente.\n");
         }
-    }while ((opcao<1) || (opcao>5));
+    }while ((opcao<1) || (opcao>6));
 }
 
 
@@ -534,11 +558,11 @@ int main() {
 int escolha;
 
 do{
-    printf("----Bem vindo----\n");
+    printf("\n----Bem vindo----\n");
     printf("\nMenu Principal:\n");
     printf("1-Clientes\n");
     printf("2-Animais\n");
-    printf("3-Adoção de Animais\n");
+    printf("3-Adocao de Animais\n");
     printf("Escolha uma opcao: ");
     scanf("%i", &escolha);
 

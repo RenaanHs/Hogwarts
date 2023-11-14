@@ -400,10 +400,24 @@ void desativarAnimal(){
 }
 void adotarAnimal() {
   int codigo;
+  char cpfAdotante[12];
+  
+ 
   printf("----------------------------------------\n");
   printf("Digite o codigo do animal a ser adotado: ");
   scanf("%d", &codigo);
-
+  printf("Digite o CPF do adotante: ");
+  scanf("%s", cpfAdotante);
+  verificaCPF(cpfAdotante);
+  if (!verificaExistenciaCPF(cpfAdotante)) {
+      printf("CPF do adotante não encontrado no cadastro de clientes.\n");
+    printf("Redirecionando para o cadastro de clientes...\n");
+    cadastrarCliente();
+    adotarAnimal();
+      return ;
+  } else {
+      printf("CPF valido!\n");
+  }
     FILE *ani;
     FILE *temp;
     ani = fopen("animais.txt", "r");
@@ -417,12 +431,13 @@ void adotarAnimal() {
 
     Animal aux;
 
-    while (fscanf(ani, "%d%s%d%s%s", &aux.codigo, aux.nome, &aux.idade, aux.cor, aux.status) != EOF) {
-        if (aux.codigo != codigo) {
-          fprintf(temp, "%i\n%s\n%i\n%s\n%s\n", aux.codigo,aux.nome, aux.idade, aux.cor, aux.status);
-        }
-    }
-  
+  while (fscanf(ani, "%d%s%d%s%s", &aux.codigo, aux.nome, &aux.idade, aux.cor, aux.status) != EOF) {
+      if (aux.codigo == codigo && strcmp(aux.status, "Ativo") == 0) {
+          strcpy(aux.status, "Adotado");
+          strcpy(aux.adotanteCPF, cpfAdotante);
+      }
+      fprintf(temp, "%d\n%s\n%d\n%s\n%s\n%s\n", aux.codigo, aux.nome, aux.idade, aux.cor, aux.status, aux.adotanteCPF);
+  }
     fclose(ani);
     fclose(temp);
 

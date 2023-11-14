@@ -83,7 +83,7 @@ void cadastrarCliente(){
         for (int i = 0; i < n; i++) {
             while (verificaCPF(cl[i].cpf))
             {
-            printf("Digite o seu CPF: \n");
+            printf("\nDigite o seu CPF: ");
             scanf("%s",cl[i].cpf);            
             verificaCPF(cl[i].cpf);
             if (verificaCPF(cl[i].cpf)) {
@@ -92,18 +92,18 @@ void cadastrarCliente(){
                 printf("CPF valido!\n");
                 }   
             }
-            printf("Digite o nome do Cliente: \n");      
+            printf("Digite o nome do Cliente: ");      
             scanf("%s",cl[i].nome);
-            printf("Digite a idade do cliente: \n");
+            printf("Digite a idade do cliente: ");
             scanf("%d",&cl[i].idade);            
             printf("Digite sua data de nascimento: \n");
-            printf("Dia: \n");
+            printf("Dia: ");
             scanf("%i", &cl[i].dia);
-            printf("Mês: \n");
+            printf("Mes: ");
             scanf("%i", &cl[i].mes);
-            printf("Ano: \n");
+            printf("Ano: ");
             scanf("%i", &cl[i].ano);
-            fprintf(cli, "%s\n%s\n%d\n%d/%d/%d\n\n", cl[i].cpf, cl[i].nome, cl[i].idade, cl[i].dia, cl[i].mes, cl[i].ano);
+            fprintf(cli, "\n%s\n%s\n%d\n%d/%d/%d\n\n", cl[i].cpf, cl[i].nome, cl[i].idade, cl[i].dia, cl[i].mes, cl[i].ano);
         }
 
     fclose(cli);
@@ -128,7 +128,7 @@ void listarClientes(){
         }
     }
 
-  int i, j, k;
+  int i, k;
 
   linhas = linhas / 5;
 
@@ -203,7 +203,7 @@ void listarClientes(){
   }
   for(k = 0; k < linhas; k++)
   {
-    printf("CPF %d:%s\n",k+1,ordenado[k]);    
+    printf("CPF %d:%s\n",k+1,ordenado[k]);
   }
   printf("----------------------------------------\n");
   fclose (cli);      
@@ -263,7 +263,7 @@ void desativarCliente(){
     Cliente aux;
 
     while (fscanf(cli, "%s%s%d%d/%d/%d", aux.cpf, aux.nome, &aux.idade, &aux.dia, &aux.mes, &aux.ano) != EOF) {
-        if (strcmp(aux.cpf, cpfDesativar) == 0) {
+        if (strcmp(aux.cpf, cpfDesativar) != 0) {
             printf("%s%s%d%d/%d/%d\n", aux.cpf, aux.nome, aux.idade, aux.dia, aux.mes, aux.ano);
             printf("Cliente desativado com sucesso!\n");
         } else {
@@ -300,7 +300,7 @@ void excluirCliente(){
 
     while (fscanf(cli, "%s%s%d%d/%d/%d", aux.cpf, aux.nome, &aux.idade, &aux.dia, &aux.mes, &aux.ano) != EOF) {
         if (strcmp(aux.cpf, cpfExcluir) != 0) {
-            fprintf(temp, "%s%s%d%d/%d/%d\n", aux.cpf, aux.nome, aux.idade, aux.dia, aux.mes, aux.ano);
+            fprintf(temp, "%s\n%s\n%d\n%d/%d/%d\n", aux.cpf, aux.nome, aux.idade, aux.dia, aux.mes, aux.ano);
         }
     }
 
@@ -328,8 +328,8 @@ int obterUltimoCodigo() {
     return ultimoCodigo;
 }
 void cadastrarAnimal(){
-  int n, ultimoCod=0,contador=0;
-  int opcao, linha=1;
+  int ultimoCod=0,contador=0;
+  int opcao;
 
   printf("----------------------------------------\n");
   printf("Cadastrando Animais :\n");
@@ -370,7 +370,7 @@ void cadastrarAnimal(){
             fprintf(ani, "%i\n", contador);
 
     fclose(ani);
-    animais();
+    void animais();
 }
 void listarAnimais(){
   int n;
@@ -391,16 +391,17 @@ void listarAnimais(){
     printf("Listar Animais:\n");
     for (int i = 0; i < n; i++) {
         fread(&an[i], sizeof(Animal), 1, ani);
-        printf("Código: %d\n", an[i].codigo);
+        printf("Codigo: %d\n", an[i].codigo);
         printf("Nome: %s", an[i].nome);
         printf("Idade: %d\n", an[i].idade);
         printf("Cor: %s", an[i].cor);
+        printf("Status: %s", an[i].status);
         printf("\n");
     }
 
     fclose(ani);
     free(an);
-    animais();
+    void animais();
 }
 void desativarAnimal(){
   int codigo;
@@ -434,7 +435,7 @@ void desativarAnimal(){
     rename("temp.txt", "animais.txt");
 
     printf("Animal desativado com sucesso!\n");
-    animais();
+    void animais();
 }
 
 void clientes(){
@@ -468,7 +469,7 @@ int opcao;
                 excluirCliente();
                 break;
             case 6:
-                main();
+                 main();
                 break;
             case 7:
                 // Liberar memória e sair do programa
@@ -511,7 +512,7 @@ void adotarAnimal() {
 
     remove("animais.txt");
     rename("temp.txt", "animais.txt");
-    void animais();
+   void animais();
 }
 
 
@@ -542,7 +543,7 @@ int opcao;
                 adotarAnimal(); 
                 break;
             case 5:
-                main();
+                 main();
                 break;
             case 6:
                 // Liberar memória e sair do programa

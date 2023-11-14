@@ -110,7 +110,6 @@ void cadastrarCliente(){
     free(cl); // Libere a memória alocada dinamicamente
     void clientes();
 }
-
 void listarClientes(){    
     FILE *cli;  
     char c, string1[12], string2[12];
@@ -437,6 +436,40 @@ void desativarAnimal(){
     printf("Animal desativado com sucesso!\n");
     void animais();
 }
+void adotarAnimal() {
+  int codigo;
+  printf("----------------------------------------\n");
+  printf("Digite o codigo do animal a ser adotado: ");
+  scanf("%d", &codigo);
+
+    FILE *ani;
+    FILE *temp;
+    ani = fopen("animais.txt", "r");
+    temp = fopen("temp.txt", "w");
+
+    if (ani == NULL || temp == NULL) {
+        printf("Erro na abertura do arquivo!\n");
+        system("pause");
+        exit(1);
+    }
+
+    Animal aux;
+
+    while (fread(&aux, sizeof(Animal), 1, ani)) {
+        if (aux.codigo != codigo) {
+            fwrite(&aux, sizeof(Animal), 1, temp);
+        } else {
+            printf("Animal adotado com sucesso!\n");
+        }
+    }
+
+    fclose(ani);
+    fclose(temp);
+
+    remove("animais.txt");
+    rename("temp.txt", "animais.txt");
+   void animais();
+}
 
 void clientes(){
 int opcao;
@@ -478,41 +511,6 @@ int opcao;
                 printf("Opcao invalida. Tente novamente.\n");
         }
     }
-}
-
-void adotarAnimal() {
-  int codigo;
-  printf("----------------------------------------\n");
-  printf("Digite o codigo do animal a ser adotado: ");
-  scanf("%d", &codigo);
-
-    FILE *ani;
-    FILE *temp;
-    ani = fopen("animais.txt", "r");
-    temp = fopen("temp.txt", "w");
-
-    if (ani == NULL || temp == NULL) {
-        printf("Erro na abertura do arquivo!\n");
-        system("pause");
-        exit(1);
-    }
-
-    Animal aux;
-
-    while (fread(&aux, sizeof(Animal), 1, ani)) {
-        if (aux.codigo != codigo) {
-            fwrite(&aux, sizeof(Animal), 1, temp);
-        } else {
-            printf("Animal adotado com sucesso!\n");
-        }
-    }
-
-    fclose(ani);
-    fclose(temp);
-
-    remove("animais.txt");
-    rename("temp.txt", "animais.txt");
-   void animais();
 }
 
 

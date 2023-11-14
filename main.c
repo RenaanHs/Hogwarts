@@ -108,7 +108,7 @@ void cadastrarCliente(){
 
     fclose(cli);
     free(cl); // Libere a memória alocada dinamicamente
-    void clientes();
+     clientes();
 }
 void listarClientes(){    
     FILE *cli;  
@@ -206,7 +206,7 @@ void listarClientes(){
   }
   printf("----------------------------------------\n");
   fclose (cli);      
-  void clientes();
+   clientes();
 }
 void consultarCliente(){
   char cpfConsulta[12];
@@ -239,7 +239,7 @@ void consultarCliente(){
 
     printf("Cliente não encontrado!\n");
     fclose(cli);
-    void clientes();
+    clientes();
 }
 void desativarCliente(){
   char cpfDesativar[12];
@@ -275,7 +275,7 @@ void desativarCliente(){
 
     remove("clientes.txt");
     rename("temp.txt", "clientes.txt");
-    void clientes();
+    clientes();
 }
 void excluirCliente(){
   char cpfExcluir[12];
@@ -310,7 +310,7 @@ void excluirCliente(){
     rename("temp.txt", "clientes.txt");
 
     printf("Cliente excluido com sucesso!\n");
-    void clientes();
+    clientes();
 }
 int obterUltimoCodigo() {
     FILE *arquivo = fopen("animais.txt", "r");
@@ -369,7 +369,7 @@ void cadastrarAnimal(){
             fprintf(ani, "%i\n", contador);
 
     fclose(ani);
-    void animais();
+    animais();
 }
 void listarAnimais(){
   int n;
@@ -400,7 +400,7 @@ void listarAnimais(){
 
     fclose(ani);
     free(an);
-    void animais();
+    animais();
 }
 void desativarAnimal(){
   int codigo;
@@ -434,7 +434,7 @@ void desativarAnimal(){
     rename("temp.txt", "animais.txt");
 
     printf("Animal desativado com sucesso!\n");
-    void animais();
+    animais();
 }
 void adotarAnimal() {
   int codigo;
@@ -468,7 +468,7 @@ void adotarAnimal() {
 
     remove("animais.txt");
     rename("temp.txt", "animais.txt");
-   void animais();
+    animais();
 }
 
 void clientes(){

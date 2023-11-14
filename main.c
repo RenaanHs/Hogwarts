@@ -17,7 +17,36 @@ typedef struct {
     int idade;
     char cor[11];
     char status[11];
+     char adotanteCPF[12];
 } Animal;
+
+bool verificaExistenciaCPF(char cpf[]) {
+    FILE *cli;
+    cli = fopen("clientes.txt", "r");
+
+    if (cli == NULL) {
+        printf("Erro na abertura do arquivo de clientes!\n");
+        system("pause");
+        exit(1);
+    }
+
+    Cliente aux;
+
+
+
+while (fscanf(cli, "%s%s%d%d/%d/%d", aux.cpf, aux.nome, &aux.idade, &aux.dia, &aux.mes, &aux.ano) != EOF) {
+        if (strcmp(aux.cpf, cpf) == 0) {
+            fclose(cli);
+
+         return true;  // O CPF foi encontrado
+        }
+    }
+
+    fclose(cli);
+    return false;  // O CPF não foi encontrado
+}
+
+
 bool verificaCPF(char cpf[]) {
     // Verifica se o CPF tem 11 dígitos
     if (strlen(cpf) != 11) {
@@ -556,4 +585,3 @@ do{
 
     return 0;
 }
-

@@ -140,7 +140,7 @@ void cadastrarCliente(){
                 }   
             }
             printf("Digite o nome do Cliente: ");      
-            scanf("%s",&cl[i].nome);
+            scanf("%s",cl[i].nome);
             printf("Digite a idade do cliente: ");
             scanf("%d",&cl[i].idade);            
             printf("Digite sua data de nascimento: \n");
@@ -365,7 +365,7 @@ int obterUltimoCodigo() {
         return 0;
     }
     int ultimoCodigo=0;
-   
+
     fscanf(arquivo, "%d", &ultimoCodigo);
     fclose(arquivo);
     return ultimoCodigo;
@@ -377,7 +377,7 @@ void cadastrarAnimal(){
   printf("----------------------------------------\n");
   printf("Cadastrando Animais :\n");
   Animal an;
-  
+
 
     FILE *ani;
     ani=fopen("animais.txt", "a" );
@@ -390,19 +390,15 @@ void cadastrarAnimal(){
             contador = ultimoCod;
 
       do {
-            printf("\n");
+             printf("\n");
             printf("Digite o nome do animal: ");
-            fflush(stdin);
-            fgets(an.nome, 50, stdin);
+            scanf("%s",an.nome);            
             printf("Digite a idade do animal: ");
             scanf("%i", &an.idade);
-            printf("Digite a cor do animal: ");
-            fflush(stdin);
-            fgets(an.cor, 10, stdin);
-            strcpy(an.status, "Ativo");
-            an.codigo = contador;
-            contador++;
-            fprintf(ani, "\n\n%i\n%s%i\n%s%s\n", an.codigo,an.nome, an.idade, an.cor, an.status);
+            printf("Digite a cor do animal: ");          
+            scanf("%s",an.cor);                        
+            strcpy(an.status, "Ativo");            
+            fprintf(ani, "%i\n%s\n%i\n%s\n%s\n", an.codigo,an.nome, an.idade, an.cor, an.status);
             printf("Deseja cadastrar mais um animal?\n1-Sim\n2-Nao\nEscolha: ");
             scanf("%i", &opcao);
         }while(opcao != 2);
@@ -411,11 +407,11 @@ void cadastrarAnimal(){
             fseek(ani, 0 , SEEK_SET);
             fprintf(ani, "%i\n", contador);
             fclose(ani);
-          
+
     animais();
 }
-void listarAnimais(){  
-    FILE *ani;
+void listarAnimais() {
+     FILE *ani;
     ani = fopen("animais.txt", "r");
     if (ani == NULL) {
         printf("Erro na abertura do arquivo!\n");
@@ -435,7 +431,7 @@ void listarAnimais(){
       printf("\n");
     }
     fclose(ani);    
-    animais();
+   void animais();
 }
 void desativarAnimal(){
   int codigo;
@@ -468,7 +464,7 @@ void desativarAnimal(){
     rename("temp.txt", "animais.txt");
 
     printf("Animal desativado com sucesso!\n");
-    animais();
+    void animais();
 }
 void adotarAnimal() {
   int codigo;
@@ -516,8 +512,9 @@ void adotarAnimal() {
     remove("animais.txt");
     rename("temp.txt", "animais.txt");
     printf("Animal adotado com sucesso!\n");
-   animais();
+   void animais();
 }
+
 void clientes(){
 int opcao;
   while (1) {
